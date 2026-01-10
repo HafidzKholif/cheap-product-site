@@ -1,13 +1,17 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Test route
+// Serve frontend (public folder)
+app.use(express.static(path.join(__dirname, "public")));
+
+// Homepage → index.html
 app.get("/", (req, res) => {
-  res.send("Backend is running!");
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 // Search products (demo data)
@@ -20,7 +24,10 @@ app.get("/api/search", async (req, res) => {
     { name: "Wireless Earbuds", price: 139000, store: "Involve Asia", image: "https://via.placeholder.com/150", link: "https://involve.asia/?affiliate_id=YOUR_ID" }
   ];
 
-  const filtered = products.filter(p => p.name.toLowerCase().includes(query.toLowerCase()));
+  const filtered = products.filter(p =>
+    p.name.toLowerCase().includes(query.toLowerCase())
+  );
+
   filtered.sort((a, b) => a.price - b.price);
   res.json(filtered);
 });
