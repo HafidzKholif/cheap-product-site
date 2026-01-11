@@ -1,34 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cheap Product Finder</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cheap Product Finder - YouTube Style</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Top Search Bar -->
-  <header class="top-bar">
-    <input type="text" id="searchInput" placeholder="Search products..." oninput="showSuggestions()" />
-    <div id="suggestions" class="suggestions"></div>
+  <!-- Top Navigation Bar -->
+  <header class="top-nav">
+    <div class="nav-left">
+      <button class="hamburger">&#9776;</button>
+      <div class="logo">🛒 MyShop</div>
+    </div>
+    <div class="nav-center">
+      <input type="text" id="searchInput" placeholder="Search products...">
+      <button onclick="searchProducts()">Search</button>
+    </div>
+    <div class="nav-right">
+      <span class="icon">🛍️</span>
+      <span class="icon">🔔</span>
+      <span class="icon">👤</span>
+    </div>
   </header>
 
-  <!-- Content -->
-  <main class="container">
+  <!-- Left Sidebar -->
+  <aside class="sidebar">
+    <h3>Categories</h3>
+    <ul>
+      <li>Electronics</li>
+      <li>Home Appliances</li>
+      <li>Fashion</li>
+      <li>Sports</li>
+      <li>Top Deals</li>
+      <li>Subscriptions</li>
+    </ul>
+  </aside>
 
-    <!-- ADS SECTION (YELLOW) -->
-    <section>
-      <h2>Sponsored Ads</h2>
-      <div class="grid" id="ads"></div>
+  <!-- Main Content Area -->
+  <main class="content">
+    <section class="ads-banner">
+      <div class="banner">Sponsored Banner</div>
     </section>
-
-    <!-- AFFILIATE PRODUCTS (GREEN) -->
-    <section>
-      <h2>Best Deals</h2>
-      <div class="grid" id="products"></div>
+    <section id="product-grid" class="product-grid">
+      <!-- Product cards inserted by JS -->
     </section>
-
   </main>
 
   <script src="script.js"></script>
