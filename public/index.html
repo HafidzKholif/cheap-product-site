@@ -8,36 +8,28 @@
 </head>
 <body>
 
-  <!-- HEADER / SEARCH -->
+  <!-- Top Search Bar -->
   <header class="top-bar">
-    <h1>🛒 Cheap Product Finder</h1>
-    <div class="search-box">
-      <input type="text" id="searchInput" placeholder="Search cheap products..." />
-      <button onclick="searchProducts()">Search</button>
-    </div>
+    <input type="text" id="searchInput" placeholder="Search products..." oninput="showSuggestions()" />
     <div id="suggestions" class="suggestions"></div>
   </header>
 
-  <!-- MAIN CONTENT -->
-  <main>
+  <!-- Content -->
+  <main class="container">
 
     <!-- ADS SECTION (YELLOW) -->
-    <section class="section ads-section">
-      <h2>Sponsored</h2>
-      <div id="ads" class="grid"></div>
+    <section>
+      <h2>Sponsored Ads</h2>
+      <div class="grid" id="ads"></div>
     </section>
 
     <!-- AFFILIATE PRODUCTS (GREEN) -->
-    <section class="section products-section">
-      <h2>Best Deals For You</h2>
-      <div id="results" class="grid"></div>
+    <section>
+      <h2>Best Deals</h2>
+      <div class="grid" id="products"></div>
     </section>
 
   </main>
-
-  <footer>
-    <p>Affiliate Disclosure: We may earn a commission from links.</p>
-  </footer>
 
   <script src="script.js"></script>
 </body>

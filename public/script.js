@@ -1,57 +1,81 @@
-// Fake suggestions (BLUE)
-const suggestions = ["wireless earbuds", "gaming mouse", "smart watch", "headphones", "keyboard"];
+// DEMO DATA (PHASE 2)
 
-// Render suggestions
-const suggestionBox = document.getElementById("suggestions");
-suggestions.forEach(s => {
-  const div = document.createElement("div");
-  div.className = "suggestion-item";
-  div.innerText = s;
-  div.onclick = () => {
-    document.getElementById("searchInput").value = s;
-    searchProducts();
-  };
-  suggestionBox.appendChild(div);
+const ads = [
+  {
+    name: "Malaysia Airlines Promo",
+    image: "https://via.placeholder.com/300x180",
+    link: "#"
+  },
+  {
+    name: "City Travel Deals",
+    image: "https://via.placeholder.com/300x180",
+    link: "#"
+  }
+];
+
+const products = [
+  {
+    name: "Wireless Earbuds",
+    price: "Rp139.000",
+    image: "https://via.placeholder.com/300",
+    link: "#"
+  },
+  {
+    name: "Smart Watch",
+    price: "Rp249.000",
+    image: "https://via.placeholder.com/300",
+    link: "#"
+  },
+  {
+    name: "Bluetooth Speaker",
+    price: "Rp199.000",
+    image: "https://via.placeholder.com/300",
+    link: "#"
+  }
+];
+
+const suggestionsData = ["Earbuds", "Smart Watch", "Speaker", "Headphone", "Power Bank"];
+
+// Render Ads
+const adsContainer = document.getElementById("ads");
+ads.forEach(ad => {
+  adsContainer.innerHTML += `
+    <div class="card ad">
+      <img src="${ad.image}" />
+      <p>${ad.name}</p>
+      <a href="${ad.link}">View Ad</a>
+    </div>
+  `;
 });
 
-async function searchProducts() {
-  const query = document.getElementById("searchInput").value;
-  const res = await fetch("/api/search?q=" + query);
-  const products = await res.json();
+// Render Products
+const productsContainer = document.getElementById("products");
+products.forEach(product => {
+  productsContainer.innerHTML += `
+    <div class="card affiliate">
+      <img src="${product.image}" />
+      <h4>${product.name}</h4>
+      <p>${product.price}</p>
+      <a href="${product.link}">Check Deal</a>
+    </div>
+  `;
+});
 
-  const results = document.getElementById("results");
-  const ads = document.getElementById("ads");
+// Search Suggestions
+function showSuggestions() {
+  const input = document.getElementById("searchInput").value.toLowerCase();
+  const suggestionsBox = document.getElementById("suggestions");
 
-  results.innerHTML = "";
-  ads.innerHTML = "";
-
-  if (products.length === 0) {
-    results.innerHTML = "<p>No products found.</p>";
+  if (!input) {
+    suggestionsBox.style.display = "none";
     return;
   }
 
-  // First product = Sponsored Ad (YELLOW)
-  const ad = products[0];
-  ads.innerHTML = `
-    <div class="card">
-      <img src="${ad.image}" />
-      <h3>${ad.name}</h3>
-      <p><strong>Rp ${ad.price}</strong></p>
-      <p>${ad.store}</p>
-      <a href="${ad.link}" target="_blank"><button>Buy Now</button></a>
-    </div>
-  `;
+  const filtered = suggestionsData.filter(item => item.toLowerCase().includes(input));
 
-  // Rest = Affiliate Products (GREEN)
-  products.slice(1).forEach(p => {
-    results.innerHTML += `
-      <div class="card">
-        <img src="${p.image}" />
-        <h3>${p.name}</h3>
-        <p><strong>Rp ${p.price}</strong></p>
-        <p>${p.store}</p>
-        <a href="${p.link}" target="_blank"><button>Buy Now</button></a>
-      </div>
-    `;
-  });
+  suggestionsBox.innerHTML = filtered
+    .map(item => `<div class="suggestion-item">${item}</div>`)
+    .join("");
+
+  suggestionsBox.style.display = filtered.length ? "block" : "none";
 }
